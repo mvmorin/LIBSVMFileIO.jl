@@ -20,12 +20,12 @@ also supported.
 ## Usage
 The package is currently not registered by can be installed as any other package
 by hitting ']' in the Julia REPL and running
-```julia-repl
+```julia
 pgk> add https://github.com/mvmorin/LIBSVMFileIO.jl
 ```
 
 After installation the package can be loaded like any other
-```julia-repl
+```julia
 julia> using LIBSVMFileIO
 ```
 
