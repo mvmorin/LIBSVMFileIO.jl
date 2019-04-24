@@ -60,6 +60,14 @@ Array{SparseArrays.SparseVector{Float64,Int64},1}
 
 julia> typeof(labels)
 Array{Int64,1}
+
+julia> length(data)
+1605
+
+julia> data, labels = libsvmread("path/to/libsvm/file/a1a", selection=11:20);
+
+julia length(data)
+10
 ```
 
 # Keyword Arguments
@@ -67,13 +75,14 @@ Array{Int64,1}
 - `valuetype::Real`: Number type to parse data values as (default: `Float64`).
 - `size::Tuple{Integer,Integer}`: Size of data set given as `(<nbr of data
   points>, <nbr of examples>)`. If given, no parsing of the data set size is
-  made. Useful for speeding up loading.
-- `selection`: If given, only load examples with indices in `selection`.
+  made. Useful for speeding up repeated partial reads.
+- `selection`: Collection of indices. If given, only load the data points with
+  indices in `selection`.
 - `multilabel::Bool`: The data points of the data set have multiple labels
   (default: false). For multi-label data the labels are returned as a `Vector`
   of `NTuples` of <labeltype>.
 - `dense::Bool`: Return data as ordinary dense vectors instead of
-  `SparseVectors` (default: false)
+  `SparseVector` (default: false)
 
 See also: [`libsvmread`](@ref), [`libsvmwrite`](@ref), [`libsvmsize`](@ref)
 """
