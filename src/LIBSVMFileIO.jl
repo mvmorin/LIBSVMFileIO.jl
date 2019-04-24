@@ -25,6 +25,8 @@ julia> nEx, nFeat = libsvmsize("path/to/libsvm/file/a1a")
 features given in the data set documentation. Trailing features that are zero
 for all data points are not counted (and can not be counted). For instance, the
 'a1a' data set have 123 features but libsvmsize return 119.
+
+See also: [`libsvmread`](@ref), [`libsvmwrite`](@ref), [`libsvmsize`](@ref)
 """
 function libsvmsize(file)
 	nEx = 0
@@ -72,6 +74,8 @@ Array{Int64,1}
   of `NTuples` of <labeltype>.
 - `dense::Bool`: Return data as ordinary dense vectors instead of
   `SparseVectors` (default: false)
+
+See also: [`libsvmread`](@ref), [`libsvmwrite`](@ref), [`libsvmsize`](@ref)
 """
 function libsvmread(
 		file;
@@ -153,6 +157,8 @@ julia> for l in eachline("example") println(l) end
   numbers.
 - `precision` is the maximal number of decimal places to write to `file`.
   Trailing zeros are never written. 
+
+See also: [`libsvmread`](@ref), [`libsvmwrite`](@ref), [`libsvmsize`](@ref)
 """
 function libsvmwrite(data, labels, file; precision=6)
 	length(data) != length(labels) &&
