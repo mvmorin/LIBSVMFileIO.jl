@@ -1,5 +1,8 @@
 # LIBSVMFileIO
 
+[![Build Status](https://travis-ci.org/mvmorin/LIBSVMFileIO.jl.svg?branch=master)](https://travis-ci.org/mvmorin/LIBSVMFileIO.jl)
+[![codecov](https://codecov.io/gh/mvmorin/LIBSVMFileIO.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/mvmorin/LIBSVMFileIO.jl)
+
 Provides functions for reading and writing data files in the format used by
 [LIBSVM](https://www.csie.ntu.edu.tw/~cjlin/libsvm/).
 
