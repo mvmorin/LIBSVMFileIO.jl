@@ -33,12 +33,16 @@ function libsvmsize(file)
 	nFeat = 0
 	for ex in eachline(file)
 		nEx += 1
-		entries = split(ex, ' ')
 
-		for i = 2:length(entries)
-			elem = entries[i]
-			elem == "" && continue # Skip extra blank-spaces
-			idx = parse(Int, split(elem, ':')[1])
+		offset = 1
+		feat_idx_rx = r"[0-9]+ *:"
+
+		while true
+			m_idx = match(feat_idx_rx, ex, offset)
+			m_idx == nothing && break
+
+			offset = m_idx.offset + length(m_idx.match)
+			idx = parse(Int, m_idx.match[1:(end-1)])
 			nFeat = max(nFeat, idx)
 		end
 	end
@@ -99,21 +103,28 @@ function libsvmread(
 		
 		# Labels
 		if multilabel
-			l = Tuple(parse.(labeltype, split(entries[1], ',')))
+			m = match(r" *[-+,\.0-9]+ *", ex)
+			l = Tuple(parse.(labeltype, split(m.match, ',')))
 		else
-			l = parse(labeltype, entries[1])
+			m = match(r" *[-+\.0-9]+ *", ex)
+			l = parse(labeltype, m.match)
 		end
 
 		# Features
 		d = (dense ? zeros(valuetype,nFeat) : spzeros(valuetype,nFeat))
 
-		for i = 2:length(entries) # Skip label
-			elem = entries[i]
-			elem == "" && continue # Skip extra blank-spaces
+		offset = 1
+		idx_rx = r"[0-9]+ *:"
+		val_rx = r": *[+-\.0-9]+"
 
-			feat = split(elem, ':')
-			idx = parse(Int, feat[1])
-			val = parse(valuetype, feat[2])
+		while true
+			m_idx = match(idx_rx, ex, offset)
+			m_val = match(val_rx, ex, offset)
+			(m_idx == nothing || m_val == nothing) && break
+			offset = m_val.offset + length(m_val.match)
+
+			idx = parse(Int, m_idx.match[1:(end-1)])
+			val = parse(valuetype, m_val.match[2:end])
 			d[idx] = val
 		end
 		return l, d
