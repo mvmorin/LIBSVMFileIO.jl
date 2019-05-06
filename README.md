@@ -21,7 +21,7 @@ vector. Partial loading where only a subset of the data points are loaded is
 also supported.
 
 ## Usage
-The package is currently not registered by can be installed as any other package
+The package is currently not registered but can be installed as any other package
 by hitting ']' in the Julia REPL and running
 ```julia
 pgk> add https://github.com/mvmorin/LIBSVMFileIO.jl
